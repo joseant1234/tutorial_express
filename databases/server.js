@@ -13,7 +13,11 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.post('/pendientes',function(req,res){
-  db.run("INSERT INTO tasks(description) VALUES('Hola')");
+  // la libreria limpia los argumentos de caracteres q puedan comprometer la sentencia
+  // evita sqlinjection, se podria enviar: 'SHOW TABLES;
+  // db.run(`INSERT INTO tasks(description) VALUES('${req.body.description}')`);
+  // por usar sanitize se interperta esa posible sentencia con un string
+  db.run(`INSERT INTO tasks(description) VALUES(?)`,req.body.description);
   res.send('Insercion realizada');
 });
 
