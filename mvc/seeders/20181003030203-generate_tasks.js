@@ -1,5 +1,7 @@
 'use strict';
-
+// sequelize db:seed:all
+// sequelize db:seed:undo
+// sequelzie db:seed:undo:all
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('tasks', [
