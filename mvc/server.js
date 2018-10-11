@@ -5,9 +5,11 @@ const Sequelize = require('sequelize');
 
 const app = express();
 
+const tasks = require('./controllers/tasks');
+
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.use('view engine','pug');
+app.set('view engine','pug');
 
 // conetarse una vez a la bd, es decir solo debe haber un objeto de la clase Sequelize
 // sequelize usa el metodo import para traer modelo de otro archivo
@@ -20,6 +22,7 @@ app.use('view engine','pug');
 // import esta q se usa en index.js de la carpeta models
 // sequelize.import(funcion()..)
 
+app.get('/tasks',tasks.home);
 
 app.listen(3000,function(){
   console.log('RUN SERVER')
