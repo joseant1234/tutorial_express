@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 
 const app = express();
 
-const tasks = require('./controllers/tasks');
+const taksRoutes = require('./routes/tasks_routes');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -22,7 +22,7 @@ app.set('view engine','pug');
 // import esta q se usa en index.js de la carpeta models
 // sequelize.import(funcion()..)
 
-app.get('/tasks',tasks.home);
+app.use(taksRoutes);
 
 app.listen(3000,function(){
   console.log('RUN SERVER')
