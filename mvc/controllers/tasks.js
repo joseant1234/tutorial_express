@@ -3,6 +3,11 @@ const Task = require('../models').Task;
 
 // nodejs aun no soporta export de JS (solo hace de manera experimental), sino usa commonjs con la prop exports del objeto module
 module.exports = {
+  index: function(req,res){
+    Task.findAll().then((tasks)=>{
+      res.json(tasks);
+    })
+  },
   create: function(req,res){
     Task.create({
       description: req.body.description
