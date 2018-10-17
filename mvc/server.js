@@ -2,13 +2,16 @@ const express = require('express');
 const sqlite3 = require('sqlite3');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
+const methodOverride = require('method-override');
 
 const app = express();
 
 const taksRoutes = require('./routes/tasks_routes');
 
 app.use(bodyParser.urlencoded({extended: true}));
-
+// estrategia: parametros query con _method, para metodos put, ...
+// POST http://localhost:3000/tasks/2?_method=PUT
+app.use(methodOverride('_method'));
 app.set('view engine','pug');
 
 // conetarse una vez a la bd, es decir solo debe haber un objeto de la clase Sequelize
