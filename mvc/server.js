@@ -7,6 +7,7 @@ const methodOverride = require('method-override');
 const app = express();
 
 const taksRoutes = require('./routes/tasks_routes');
+const registrationsRoutes = require('./routes/registrations_routes');
 
 app.use(bodyParser.urlencoded({extended: true}));
 // estrategia: parametros query con _method, para metodos put, ...
@@ -26,6 +27,7 @@ app.set('view engine','pug');
 // sequelize.import(funcion()..)
 
 app.use(taksRoutes);
+app.use(registrationsRoutes);
 
 app.listen(3000,function(){
   console.log('RUN SERVER')
