@@ -11,6 +11,36 @@ module.exports = (sequelize, DataTypes) => {
     password_hash: DataTypes.STRING,
     password: DataTypes.VIRTUAL
   }, {});
+  User.login = function(email,password){
+    // buscar el usuario
+    // el return de la promesa es User.findOne, tambien return otra promesa user.authetnicatePassword, el cual return una promesa con un valor boolean y esta return de un promesa con el valor del usuario
+    return User.findOne({
+      where: {
+        email
+      }
+    }).then(user=>{
+      if(!user) return null;
+      return user.authenticatePassword(password).then(valid=>{
+        // utilizando operadores ternarios
+        // then(valid=> valid ? user : null);
+        if(valid) return user;
+        return null;
+      });
+    })
+  };
+  // para los metodos de instancia se usa prototype de JS
+  // authenticatePassword return una promesa
+  User.prototype.authenticatePassword = function(password){
+    // debido a q la ejecucion de la funcion es asincrona, se va a rodear con una promesa
+    return new Promise((res,rej)=>{
+      // passwordTextPlano,hashPassword, callback con la comparacion hecha entre passwordTextPlano en hashPassword
+      bcrypt.compare(password,this.password_hash,function(err,valid){
+        if(err) return rej(err);
+        res(valid);
+      });
+    })
+  }
+
   User.associate = function(models) {
     // associations can be defined here
   };

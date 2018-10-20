@@ -8,6 +8,7 @@ const app = express();
 
 const taksRoutes = require('./routes/tasks_routes');
 const registrationsRoutes = require('./routes/registrations_routes');
+const sessionsRoutes = require('./routes/sessions_routes');
 
 app.use(bodyParser.urlencoded({extended: true}));
 // estrategia: parametros query con _method, para metodos put, ...
@@ -28,6 +29,7 @@ app.set('view engine','pug');
 
 app.use(taksRoutes);
 app.use(registrationsRoutes);
+app.use(sessionsRoutes);
 
 app.listen(3000,function(){
   console.log('RUN SERVER')
