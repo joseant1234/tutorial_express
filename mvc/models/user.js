@@ -43,6 +43,9 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     // associations can be defined here
+   User.hasMany(models.Task,{
+     as: 'tasks'
+   });
   };
   // cuando en un hook se va utilizar operaciones asincronas como la de bcrypt, se debe hacer return una promesa del metodo, de esta manera sequelize podra conocer q es una operacion asincrona y esperara q la promesa para continuar
   // si no se hace un return de una promesa, sequelize ejecutara el hook sin q de manera necesaria halla terminado la operacion asincrona
